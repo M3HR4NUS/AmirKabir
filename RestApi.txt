@@ -1,0 +1,9 @@
+add UI
+api js
+mehram
+کار داشبورد در حال اتمام است
+
+
+get cat:   http://localhost:5000/admin/getCat  *GET
+set cat:  http://localhost:5000/admin/setCat  *POST
+set blog:  http://localhost:5000/admin/sendblog  *POST
