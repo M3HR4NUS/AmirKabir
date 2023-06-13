@@ -34,11 +34,10 @@ exports.setCat=async(req,res,next)=>{
   }
 }
 
-exports.getCat=async(req,res,next)=>{
-    try {
+exports.getCat=async(req,res,next)=>{    try {
 
       const cat=await Cat.find({}).sort('asc');
-      console.log(cat);
+    
       if(!cat){
         const error = new Error(
           "دسته بندی موجود نمی باشد"
@@ -67,7 +66,12 @@ exports.setblog=async(req,res,next)=>{
       await sharp(thumbnail.data)
       .jpeg({ quality: 80 })
       .toFile(uploadPath)
-      .catch((err) => console.log(err));
+      .catch((err) =>  {
+        const error = new Error(
+        "مشکل در آپلود عکس"
+    );
+    error.statusCode = 422;
+    throw error; });
 
 
        await Blog.create({
@@ -84,39 +88,24 @@ exports.setblog=async(req,res,next)=>{
 
 }
 
-//   const upload = multer({
-//       limits: { fileSize: 8000000 },
-//       fileFilter: fileFilter,
-//   }).single("imageget");
 
-//   upload(req, res, async (err) => {
-//       if (err) {
-//           if (err.code === "LIMIT_FILE_SIZE") {
-//               return res.status(422).json({
-//                   error: "حجم عکس ارسالی نباید بیشتر از 8 مگابایت باشد",
-//               });
-//           }
-//           console.log(req.files);
-//           res.status(400).json({ error: err });
-//       } else {
-//           if (req.files) {
-//               const fileName = `${shortId.generate()}_${
-//                   req.files.image.name
-//               }`;
-//               await sharp(req.files.image.data)
-//                   .jpeg({
-//                       quality: 80,
-//                   })
-//                   .toFile(`./public/uploads/${fileName}`)
-//                   .catch((err) => console.log(err));
-//               res.status(200).json({
-//                   image: `http://localhost:3000/uploads/${fileName}`,
-//               });
-//           } else {
-//               res.status(400).json({
-//                   error: "جهت آپلود باید عکسی انتخاب کنید",
-//               });
-//           }
-//       }
-//   });
-// };
+exports.getBlog=async(req,res,next)=>{
+  try {
+    
+    const blog=await Blog.find({}).sort('asc');
+
+    if(!blog){
+      const error = new Error(
+        "بلاگی موجود نمی باشد"
+    );
+    error.statusCode = 422;
+    throw error;
+    }else{
+      res.status(201).json({blog,message:"بلاگ با موفیقت ارسال شد"});
+    }
+    
+
+  } catch (err) {
+    next(err);
+  }
+}

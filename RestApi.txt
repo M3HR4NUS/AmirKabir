@@ -7,3 +7,4 @@ mehram
 get cat:   http://localhost:5000/admin/getCat  *GET
 set cat:  http://localhost:5000/admin/setCat  *POST
 set blog:  http://localhost:5000/admin/sendblog  *POST
+get blog:  http://localhost:5000/admin/getblog  *GET {_id * title * des * thumbnail * cat * createdAt}
