@@ -101,7 +101,7 @@ exports.getBlog=async(req,res,next)=>{
     error.statusCode = 422;
     throw error;
     }else{
-      res.status(201).json({blog,message:"بلاگ با موفیقت ارسال شد"});
+      res.status(201).json({blog,message:"بلاگ با موفیقت دریافت  شد"});
     }
     
 
