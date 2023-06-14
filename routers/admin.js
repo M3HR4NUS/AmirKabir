@@ -9,6 +9,7 @@ router.get('/getCat',con.getCat);
 
 router.post('/sendblog',con.setblog);
 router.get('/getblog',con.getBlog);
+router.get('/getblog/:id',con.getsingelBlog);
 
 
 module.exports = router;

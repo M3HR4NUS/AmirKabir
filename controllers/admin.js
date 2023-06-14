@@ -109,3 +109,24 @@ exports.getBlog=async(req,res,next)=>{
     next(err);
   }
 }
+
+exports.getsingelBlog=async(req,res,next)=>{
+  try {
+      
+    const blog=await Blog.findOne({_id : req.params.id});
+
+    if(!blog){
+      const error = new Error(
+        "بلاگی موجود نمی باشد"
+    );
+    error.statusCode = 422;
+    throw error;
+    }else{
+      res.status(201).json({blog,message:"بلاگ با موفیقت دریافت  شد"});
+    }
+    
+
+  } catch (err) {
+    next(err);
+  }
+}
