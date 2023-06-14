@@ -6,6 +6,7 @@ mehram
 
 get cat:   http://localhost:5000/admin/getCat  *GET
 set cat:  http://localhost:5000/admin/setCat  *POST
+delete cat: http://localhost:5000/admin/deletecat/:id  *DELETE paramas
 set blog:  http://localhost:5000/admin/sendblog  *POST
 get blog:  http://localhost:5000/admin/getblog  *GET All{_id * title * des * thumbnail * cat * createdAt}
 getsingl blog:  http://localhost:5000/admin/getblog/:id  *GET Singel{_id * title * des * thumbnail * cat * createdAt}

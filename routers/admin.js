@@ -6,6 +6,7 @@ const router = new Router();
 
 router.post('/setCat',con.setCat);
 router.get('/getCat',con.getCat);
+router.delete('/deletecat/:id',con.deleteCat);
 
 router.post('/sendblog',con.setblog);
 router.put('/editblog/:id',con.editBlog);

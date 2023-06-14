@@ -53,6 +53,19 @@ exports.getCat=async(req,res,next)=>{    try {
     }
 }
 
+exports.deleteCat = async (req, res, next) => {
+  try {
+
+    await Cat.findByIdAndRemove(req.params.id);
+
+              res.status(200).json({ message: "دسته بندی  با موفقیت پاک شد" });
+     
+    
+  } catch (err) {
+      next(err);
+  }
+};
+
 exports.setblog=async(req,res,next)=>{
   const thumbnail = req.files ? req.files.thumbnail : {};
   const fileName = `${shortId.generate()}_${thumbnail.name}`;
