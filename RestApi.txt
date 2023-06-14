@@ -8,5 +8,6 @@ get cat:   http://localhost:5000/admin/getCat  *GET
 set cat:  http://localhost:5000/admin/setCat  *POST
 set blog:  http://localhost:5000/admin/sendblog  *POST
 get blog:  http://localhost:5000/admin/getblog  *GET All{_id * title * des * thumbnail * cat * createdAt}
-get blog:  http://localhost:5000/admin/getblog/:id  *GET Singel{_id * title * des * thumbnail * cat * createdAt}
-get blog:  http://localhost:5000/admin/editblog/:id  *PUT Singel{ title * des * thumbnail * }
+getsingl blog:  http://localhost:5000/admin/getblog/:id  *GET Singel{_id * title * des * thumbnail * cat * createdAt}
+edit blog:  http://localhost:5000/admin/editblog/:id  *PUT Singel{ title * des * thumbnail * }
+remove blog:  http://localhost:5000/admin/deleteblog/:id  *DELETE paramas

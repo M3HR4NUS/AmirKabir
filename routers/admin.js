@@ -9,6 +9,9 @@ router.get('/getCat',con.getCat);
 
 router.post('/sendblog',con.setblog);
 router.put('/editblog/:id',con.editBlog);
+
+router.delete('/deleteblog/:id',con.deleteBlog);
+
 router.get('/getblog',con.getBlog);
 router.get('/getblog/:id',con.getsingelBlog);
 

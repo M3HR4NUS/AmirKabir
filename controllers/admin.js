@@ -184,3 +184,25 @@ exports.editBlog = async (req, res, next) => {
       next(err);
   }
 };
+
+
+exports.deleteBlog = async (req, res, next) => {
+  try {
+      const blog = await Blog.findByIdAndRemove(req.params.id);
+      const filePath = `${appRoot}/public/uploads/thumbnails/${blog.thumbnail}`;
+
+      fs.unlink(filePath, (err) => {
+          if (err) {
+              const error = new Error(
+                  "خطای در پاکسازی عکس پست مربوطه رخ داده است"
+              );
+              error.statusCode = 400;
+              throw error;
+          } else {
+              res.status(200).json({ message: "پست شما با موفقیت پاک شد" });
+          }
+      });
+  } catch (err) {
+      next(err);
+  }
+};
