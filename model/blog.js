@@ -31,6 +31,7 @@ const blogSchmea = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "Cat",
   },
+
 });
 
 blogSchmea.statics.blgValidation = function (body) {

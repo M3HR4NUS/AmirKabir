@@ -1,4 +1,4 @@
-const fs = require("fs");
+const fs=require('fs');
 
 
 const sharp = require("sharp");
@@ -91,9 +91,8 @@ exports.setblog=async(req,res,next)=>{
 
 exports.getBlog=async(req,res,next)=>{
   try {
-    
-    const blog=await Blog.find({}).sort('asc');
 
+    const blog=await Blog.find({}).sort('asc');
     if(!blog){
       const error = new Error(
         "بلاگی موجود نمی باشد"
@@ -130,3 +129,58 @@ exports.getsingelBlog=async(req,res,next)=>{
     next(err);
   }
 }
+
+exports.editBlog = async (req, res, next) => {
+  const thumbnail = req.files ? req.files.thumbnail : {};
+  const fileName = `${shortId.generate()}_${thumbnail.name}`;
+  const uploadPath = `${appRoot}/public/uploads/thumbnails/${fileName}`;
+
+  const blog = await Blog.findOne({ _id: req.params.id });
+
+  try {
+      if (thumbnail.name)
+          await Blog.blgValidation({ ...req.body, thumbnail });
+      else
+          await Blog.blgValidation({
+              ...req.body,
+              thumbnail: {
+                  name: "placeholder",
+                  size: 0,
+                  mimetype: "image/jpeg",
+              },
+          });
+
+      if (!blog) {
+          const error = new Error("بلاگی با این شناسه یافت نشد");
+          error.statusCode = 404;
+          throw error;
+      }
+
+          if (thumbnail.name) {
+              fs.unlink(
+                  `${appRoot}/public/uploads/thumbnails/${blog.thumbnail}`,
+                  async (err) => {
+                      if (err) console.log(err);
+                      else {
+                          await sharp(thumbnail.data)
+                              .jpeg({ quality: 80 })
+                              .toFile(uploadPath)
+                              .catch((err) => console.log(err));
+                      }
+                  }
+              );
+          
+
+          const { title,des } = req.body;
+          blog.title = title;
+          blog.des = des;
+          blog.thumbnail = thumbnail.name ? fileName : blog.thumbnail;
+
+          await blog.save();
+
+          res.status(200).json({ message: "پست شما با موفقیت ویرایش شد" });
+      }
+  } catch (err) {
+      next(err);
+  }
+};
