@@ -9,3 +9,4 @@ set cat:  http://localhost:5000/admin/setCat  *POST
 set blog:  http://localhost:5000/admin/sendblog  *POST
 get blog:  http://localhost:5000/admin/getblog  *GET All{_id * title * des * thumbnail * cat * createdAt}
 get blog:  http://localhost:5000/admin/getblog/:id  *GET Singel{_id * title * des * thumbnail * cat * createdAt}
+get blog:  http://localhost:5000/admin/editblog/:id  *PUT Singel{ title * des * thumbnail * }
