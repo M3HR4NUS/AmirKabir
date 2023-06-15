@@ -151,18 +151,18 @@ exports.editBlog = async (req, res, next) => {
   const blog = await Blog.findOne({ _id: req.params.id });
 
   try {
-      if (thumbnail.name)
+      if (thumbnail != {}){
           await Blog.blgValidation({ ...req.body, thumbnail });
-      else
-          await Blog.blgValidation({
-              ...req.body,
-              thumbnail: {
-                  name: "placeholder",
-                  size: 0,
-                  mimetype: "image/jpeg",
-              },
-          });
-
+      }else{
+        await Blog.blgValidation({
+          ...req.body,
+          thumbnail: {
+              name: "placeholder",
+              size: 0,
+              mimetype: "image/jpeg",
+          },
+      });
+       }
       if (!blog) {
           const error = new Error("بلاگی با این شناسه یافت نشد");
           error.statusCode = 404;
