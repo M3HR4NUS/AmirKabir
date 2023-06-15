@@ -9,7 +9,7 @@ router.get('/getCat',con.getCat);
 router.delete('/deletecat/:id',con.deleteCat);
 
 router.post('/sendblog',con.setblog);
-router.put('/editblog/:id',con.editBlog);
+router.patch('/editblog/:id',con.editBlog);
 
 router.delete('/deleteblog/:id',con.deleteBlog);
 
