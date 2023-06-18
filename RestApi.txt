@@ -12,3 +12,9 @@ get blog:  http://localhost:5000/admin/getblog  *GET All{_id * title * des * thu
 getsingl blog:  http://localhost:5000/admin/getblog/:id  *GET Singel{_id * title * des * thumbnail * cat * createdAt}
 edit blog:  http://localhost:5000/admin/editblog/:id  *PATCH Singel{ title * des * thumbnail * }
 remove blog:  http://localhost:5000/admin/deleteblog/:id  *DELETE paramas
+
+
+
+//! Add product
+
+add product :  http://localhost:5000/user/product *POST  {title,body,price,thumbnail,cat[image]}

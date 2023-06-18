@@ -74,3 +74,4 @@ exports.users= async(req,res)=>{
     const user=await User.find({});
     res.send(user)
 }
+

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-
+const {prodecSchemas}=require("./scurity/yupProdec");
 
 const postSchmea = new mongoose.Schema({
     title: {
@@ -14,33 +14,33 @@ const postSchmea = new mongoose.Schema({
         type: String,
         required: true,
     },
-    status: {
+    price: {
         type: String,
-        default: "public",
-        enum: ["private", "public"],
+        required: true,
     },
     thumbnail: {
         type: String,
         required: true,
+    },
+    image:{
+      type:Array,
+      default: [''],
     },
 
     createdAt: {
         type: Date,
         default: Date.now,
     },
-    comment_id:{
-      type:string,
-      required:true,
-    },
-    tag:{
-      type:string,
-      required:true,
-    },
+
     cat: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Cat",
   },
 });
+
+postSchmea.statics.proValidation = function (body) {
+  return prodecSchemas.validate(body, { abortEarly: false });
+};
 
 
 
